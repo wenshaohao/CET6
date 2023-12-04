@@ -18,7 +18,7 @@
 						<span>请输入您的信息</span>
 						<input type="email" id="E-mail" name="E-mail" placeholder="邮箱" v-model="form.userEmail">
 						<input type="text" id="Username" name="Username" placeholder="用户名" v-model="form.userName">
-						<input type="text" id="Password" name="Password" placeholder="密码" v-model="form.userPassword">
+						<input type="password" id="Password" name="Password" placeholder="密码" v-model="form.userPassword">
 						<input type="password" id="Password2" name="password2" placeholder="确认密码"
 							v-model="surePassword">
 						<div style="flex-direction: row;display: flex;">
@@ -30,7 +30,7 @@
 								style="margin-left: 12px; width: 130px;background-color:#ff493d ;color: white;"
 								type="button" id="send" name="send" v-model="btnText">
 						</div>
-						<div style="height: 100px;width: 300px;">{{tip}}</div>
+						<div style="height: 100px;width: 300px;color: #ff493d;">{{tip}}</div>
 						<input type="button" value="注册"  style="margin-left: 12px; width: 130px;background-color:#ff493d ;color: white;" @click="regist()"/>
 					</form>
 				</div>
@@ -44,8 +44,8 @@
 						<input type="password" placeholder="密码" v-model="userPassword">
 						<el-checkbox style="display: flex;flex-direction: row;" label="24小时免登录" name="type"
 							v-model="checkBox" />
-						<a href="###">忘记密码？</a>
 						<input type="button" class="primary" value="登录" @click="login()" />
+						<a href="http://localhost:9528/">管理员入口</a>
 					</form>
 				</div>
 				<div class="overlay-container">
@@ -65,6 +65,21 @@
 			</div>
 		</div>
 
+
+	<el-dialog
+	   v-model="centerDialogVisible"
+	   title="注册成功"
+	   width="30%"
+	   align-center
+	 >
+	   <span>您的账号是</span>
+	   <h3>{{initUserNunber}}</h3>
+	   <template #footer>
+	     <span class="dialog-footer">
+	       <el-button @click="jump()">我已记住</el-button>
+	     </span>
+	   </template>
+	 </el-dialog>
 	</div>
 
 
@@ -75,7 +90,7 @@
 <script>
 	import axios from "axios";
 	import VueCookies from 'vue-cookies';
-
+import { ElMessage } from 'element-plus'
 	// import '../../assets/css/animate.css';
 	import logo from '../../assets/picture/logo.jpg';
 	import logo1 from '../../assets/picture/logo1.jpg';
@@ -107,7 +122,9 @@
 					userName: '',
 					userPassword: '',
 					userEmail: '',
-				}
+				},
+				centerDialogVisible:false,
+				initUserNunber:'',
 			}
 
 		},
@@ -154,11 +171,11 @@
 								}
 							})
 						} else {
-							confirm("登录失败，请检查是否输入正确")
+							ElMessage.error("登录失败，请检查是否输入正确")
 						}
 					} else {
 						if (res.data.data != null) {
-							VueCookies.set("user", res.data.data, 3600)
+							VueCookies.set("user", res.data.data, 7200)
 							console.log(VueCookies.get("user"))
 							// this.$router.push(path:'/index',query:{userId:res.data.data.userId})
 							this.$router.push({
@@ -169,7 +186,8 @@
 								}
 							})
 						} else {
-							confirm("登录失败，请检查是否输入正确")
+							// confirm("登录失败，请检查是否输入正确")
+							ElMessage.error("登录失败，请检查是否输入正确")
 						}
 					}
 
@@ -229,9 +247,11 @@
 										}
 									}).then((res) => {
 										console.log(res.data.data)
-										this.code = res.data.data
-										console.log(this.code)
-										this.$router.go(0)
+										// this.code = res.data.data
+										// console.log(this.code)
+										this.initUserNunber=res.data.data.userNumber
+										this.centerDialogVisible=true
+										
 										// this.canGet = true; //禁用按钮，防止多次触发
 										// this.time = 60; //60秒后能继续按按钮
 										// this.timer1();
@@ -252,7 +272,11 @@
 					this.tip = "邮件不能为空"
 				}
 			},
+jump(){
+	this.$router.go(0)
 
+	
+},
 			active: function() {
 				let signUp = document.getElementById('signUp');
 				let signIn = document.getElementById('signIn');

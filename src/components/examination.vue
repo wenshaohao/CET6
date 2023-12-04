@@ -26,35 +26,29 @@
 								to="/examination">
 								<div>更多题型>></div>
 							</router-link>
-
+	
 						</h2>
 					</div>
 				</div>
 			</div>
-
+	
 			<div class="row" style="float: left;width: ;padding-left: 10px;margin-top: 20px;">
 				<div style="display: flex;flex-direction: row;">
 					<router-link :to="{path:'/examination_text',query: {id:examination.examinationId}}" class="a"
 						style="box-shadow: 5px 5px 5px #989898;height: 395px;width: 280px;margin: 0 auto;margin-right: 20px;border: 0.1px solid #b1b1b1;"
 						v-for="(examination,index) in list" v-show="index<4" >
-						<img  :src="examination.examinationCover"
+						<img  :src="`${examination.examinationCover+'?'+now}`"
 							alt="">
 					</router-link>
-					<!-- 	<router-link to="/examination_text" class="a" style="box-shadow: 5px 5px 5px #989898;height: 395px;width: 280px;margin: 0 auto;margin-right: 20px;border: 0.1px solid #b1b1b1;">
-					<img src="https://zhenti-res.youshaohua.com/images/read/cet6/2021-12/01/thumbnail_moz.jpg" alt="">
-			</router-link>
-			<router-link to="/examination_text" class="a" style="box-shadow: 5px 5px 5px #989898;height: 395px;width: 280px;margin: 0 auto;margin-right: 20px;border: 0.1px solid #b1b1b1;">
-					<img src="https://zhenti-res.youshaohua.com/images/read/cet6/2021-12/01/thumbnail_moz.jpg" alt="">
-			</router-link>
-			<router-link to="/examination_text" class="a" style="box-shadow: 5px 5px 5px #989898;height: 395px;width: 280px;margin: 0 auto;border: 0.1px solid #b1b1b1;">
-					<img src="https://zhenti-res.youshaohua.com/images/read/cet6/2021-12/01/thumbnail_moz.jpg" alt="">
-			</router-link> -->
+	
 				</div>
-
+	
 			</div>
-
+	
 		</div>
 	</section>
+
+
 
 
 </template>

@@ -185,14 +185,15 @@ document.getElementById("reading_question").innerHTML=this.reading.readingQuesti
 		width: 100%;
 	}
 
-	.left {
-		border-style: groove;
-		border-width: 10px;
-		padding: 0 50px;
+.left {
+		/* background-color: rgb(191, 203, 217); */
+		border-style: solid;
+		/* border-width: 10px; */
+		padding: 20px 50px;
 		margin-left: 2%;
 		height: 100%;
 		width: 46%;
-		background-color: antiquewhite;
+		/* background-color: antiquewhite; */
 		overflow-x: hidden;
 		overflow-wrap: anywhere;
 		margin-right: 2%;
@@ -201,8 +202,8 @@ document.getElementById("reading_question").innerHTML=this.reading.readingQuesti
 	}
 
 	.right {
-		border-style: groove;
-		border-width: 10px;
+		border-style: solid;
+		/* border-width: 10px; */
 		margin-right: 2%;
 		margin-left: 2%;
 		height: 100%;
@@ -210,6 +211,7 @@ document.getElementById("reading_question").innerHTML=this.reading.readingQuesti
 		/* background-color: #00ffff; */
 		overflow-x: hidden;
 		overflow-wrap: anywhere;
+		padding: 20px 50px;
 
 	}
 
@@ -223,12 +225,15 @@ document.getElementById("reading_question").innerHTML=this.reading.readingQuesti
 		position: absolute;
 		height: 100px;
 		margin-top: 0px;
-		bottom: 1%;
+		right: 2.5%;
+		bottom: 0.5%;
 		width: 45%;
 		background-color: white;
 		border-width: 2px 0 0 0;
 		border-style: solid;
 		border-color: black;
+		background-color: #e7e7e7;
+		
 	}
 
 	.next {
@@ -248,5 +253,6 @@ document.getElementById("reading_question").innerHTML=this.reading.readingQuesti
 		width: 80px;
 		margin-top: 40px;
 		text-align: center;
+		background-color: #e7e7e7;
 	}
 </style>

@@ -67,7 +67,7 @@
 				}).then((res) => {
 					console.log(res.data.data)
 					for(let i=0 ;i<res.data.data.length;i++){
-						this.ids.push(res.data.data[i])
+						this.ids.push(res.data.data[i].writingId)
 					}
 					this.writing.writingId=this.ids[Math.floor((Math.random()*this.ids.length))].toString()
 					console.log(this.writing.writingId)
@@ -103,7 +103,7 @@
 				this.$router.go(-1);
 			},
 			next(){
-				this.$router.go(0)
+				this.getid();
 			}
 		},
 		created() {

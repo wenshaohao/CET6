@@ -5,7 +5,7 @@
 	<div class="wrapper" style="margin-top: 50px;padding-top: 0;">
 		<div class="sidebar" style="margin-top: 0;padding-top: 0;">
 			<div class="sidebar-header">
-				<img :src="img" alt="Image">
+				<img :src="`${img+'?'+now}`" alt="Image">
 			</div>
 			<div class="sidebar-content">
 				<nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -18,9 +18,9 @@
 							<li class="nav-item">
 
 							</li>
-							<li class="nav-item">
+							<!-- <li class="nav-item">
 								<a class="nav-link" href="#about">个人信息<i class="fa fa-address-card"></i></a>
-							</li>
+							</li> -->
 							<li class="nav-item">
 								<a class="nav-link" href="#experience">错题本<i class="fa fa-star"></i></a>
 							</li>
@@ -29,6 +29,10 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#portfolio">喜爱读本<i class="fa fa-file-archive"></i></a>
+								
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#myPost">我的帖子<i class="fa fa-file-archive"></i></a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#review">关于<i class="fa fa-envelope"></i></a>
@@ -48,15 +52,15 @@
 
 			<!-- About Start -->
 
-			<div class="about" id="about" style=" position: relative;padding-top: 110px;margin-top: -110px;">
+			<!-- <div class="about" id="about" style=" position: relative;padding-top: 110px;margin-top: -110px;"> -->
 				<!-- <div style="height: 50px;"></div> -->
-				<div class="content-inner">
+			<!-- 	<div class="content-inner">
 					<div class="content-header">
 						<h2>个人信息</h2>
 					</div>
 					<div class="row align-items-center">
 						<div class="col-md-6 col-lg-5">
-							<img :src="img" alt="Image">
+							<img :src="`${img+'?'+now}`" alt="Image">
 						</div>
 						<div class="col-md-6 col-lg-7">
 							<p>
@@ -68,7 +72,7 @@
 					</div>
 
 				</div>
-			</div>
+			</div> -->
 			<!-- About End -->
 
 
@@ -81,7 +85,8 @@
 					</div>
 					<div class="row align-items-center">
 						<router-link to="/person/cloze" class="col-md-6" style="text-decoration: none;">
-							<div class="exp-col"   style="text-decoration: none;border: solid;border-width: 1px;padding: 10px 10px;">
+							<div class="exp-col"
+								style="text-decoration: none;border: solid;border-width: 1px;padding: 10px 10px;">
 
 								<h3>完形填空</h3>
 								<h4>分数比例：5%</h4>
@@ -90,24 +95,27 @@
 							</div>
 						</router-link>
 						<router-link to="/person/reading" class="col-md-6" style="text-decoration: none;">
-							<div class="exp-col"   style="text-decoration: none;border: solid;border-width: 1px;padding: 10px 10px;">
+							<div class="exp-col"
+								style="text-decoration: none;border: solid;border-width: 1px;padding: 10px 10px;">
 
 								<h3>阅读理解</h3>
-								<h4>分数比例：10%</h4>
-								<h5>分值：71</h5>
+								<h4>分数比例：20%</h4>
+								<h5>分值：142</h5>
 								<p>词汇重中之重、细心阅读原文（技巧）</p>
 							</div>
 						</router-link>
-						<router-link to="/person/matching" class="col-md-6" style="text-decoration: none;margin-top: 20px;">
-							<div class="exp-col"   style="text-decoration: none;border: solid;border-width: 1px;padding: 10px 10px;">
+						<router-link to="/person/matching" class="col-md-6"
+							style="text-decoration: none;margin-top: 20px;">
+							<div class="exp-col"
+								style="text-decoration: none;border: solid;border-width: 1px;padding: 10px 10px;">
 
 								<h3>段落匹配</h3>
-								<h4>分数比例：20%</h4>
-								<h5>分值：142</h5>
+								<h4>分数比例：10%</h4>
+								<h5>分值：71</h5>
 								<p>先5句，关键词，再定位，后5句（技巧）</p>
 							</div>
 						</router-link>
-			
+
 					</div>
 				</div>
 			</div>
@@ -120,21 +128,24 @@
 						<h2>生词本</h2>
 					</div>
 					<div class="row align-items-center">
-						<router-link to="/person/word_text" class="col-md-6" style="text-decoration: none;border: solid;border-width: 1px;">
+						<router-link to="/person/word_text" class="col-md-6"
+							style="text-decoration: none;border: solid;border-width: 1px;">
 							<div class="srv-col">
 								<i class="fa fa-desktop"></i>
 								<h3>单词背诵</h3>
 								<p>温故而知新，让单词熟练于心</p>
 							</div>
 						</router-link>
-						<router-link to="/person/word_etoc" class="col-md-6" style="text-decoration: none;border: solid;border-width: 1px;">
+						<router-link to="/person/word_etoc" class="col-md-6"
+							style="text-decoration: none;border: solid;border-width: 1px;">
 							<div class="srv-col">
 								<i class="fa fa-laptop"></i>
 								<h3>英译中</h3>
 								<p>见词知意，英文阅读无障碍</p>
 							</div>
 						</router-link>
-						<router-link to="/person/word_ctoe" class="col-md-6" style="text-decoration: none;border: solid;border-width: 1px;">
+						<router-link to="/person/word_ctoe" class="col-md-6"
+							style="text-decoration: none;border: solid;border-width: 1px;">
 							<div class="srv-col">
 								<i class="fa fa-search"></i>
 								<h3>中译英</h3>
@@ -173,11 +184,56 @@
 								</figure>
 							</div>
 						</router-link>
-
+						<center>
+							<el-pagination background style="margin-top: 20px;" @size-change="handleSizeChange"
+								@current-change="handleCurrentChange" :current-page="currentPage" :page-size="pageSize"
+								layout=" prev, pager, next,jumper" :total="total">
+							</el-pagination>
+						</center>
 					</div>
 				</div>
 			</div>
 			<!-- Portfolio Start -->
+
+
+
+			<div class="portfolio" id="myPost" style=" position: relative;padding-top: 70px;margin-top: 0px;">
+				<div class="content-inner">
+					<div class="content-header">
+						<h2>我的帖子</h2>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div style="border: 1px solid black;margin-bottom: 5px;" class="personPost"
+								v-for="(value,index) in post" @click="postText(value.postId)" v-show="index<3">
+								<div style="font-size: 20px;">{{value.postTitle}}</div>
+
+								<div style="display: flex;flex-direction: row-reverse;margin-right: 20px;">
+									<div style="margin-right: 30px;height: 73px;line-height: 73px;">
+										<router-link class="nav-item" to="/person" style="margin-top: 10px;">
+											<el-avatar class="photo" :src="`${userImage[index]+'?'+now}`" />
+										</router-link>
+									</div>
+									<div style="margin-right: 50px;height: 73px;line-height: 73px;">{{userName[index]}}
+									</div>
+									<div style="margin-right: 50px;height: 73px;line-height: 73px;">
+										<p style="margin-left:40px;height: 73px;line-height: 73px;">{{value.postTime}}
+										</p>
+									</div>
+								</div>
+
+							</div>
+							<router-link to="/person_post"
+								style="display: flex;flex-direction: row-reverse;margin-top: 10px;text-decoration: none;">
+								更多>>
+							</router-link>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
 
 			<!-- Review Start -->
 			<div class="review" id="review" style=" position: relative;padding-top: 60px;margin-top: 0px;">
@@ -196,7 +252,7 @@
 									</p>
 								</div>
 								<div class="review-img">
-									<img src="../../assets/picture/R-C.png" alt="Image">
+									<img :src="`${img+'?'+now}`" alt="Image">
 									<div class="review-name">
 										<h3>温少豪 1940706276</h3>
 										<p>学生</p>
@@ -219,18 +275,24 @@
 
 
 s
-	
+
 
 
 <script>
-	import { ref, toRefs, reactive }  from 'vue'
+	import {
+		ref,
+		toRefs,
+		reactive
+	} from 'vue'
 	// import '../../assets/css/style-p.css'
 	// import '../../assets/js/main-p.js'
 	import VueCookies from 'vue-cookies';
 	import Header from '../../components/header.vue'
 	import axios from 'axios'
 
-import {watch} from'vue'
+	import {
+		watch
+	} from 'vue'
 
 
 	export default {
@@ -239,25 +301,66 @@ import {watch} from'vue'
 			return {
 				list: [],
 				img: '',
-				ids:'',
+				ids: '',
+				img: '',
+				announcement: [],
+				post: [],
+				userName: [],
+				userImage: [],
+				currentPage: 1,
+				pageSize: 3,
+				total: 20
 			}
 		},
-	// 	setup() {
-	
-	// 		watch(() => 
-	// 		    this.$router.currentRoute.value.path,
-	// 		    (toPath) => {
-	// 		      //要执行的方法
-	// 		      // const query = router.currentRoute.value.query;
-	// 		      console.log("改变")
-	// 		    },{immediate: true,deep: true})
 
-	// 	},
 		components: {
 			Header
 
 		},
 		methods: {
+			getAllPost() {
+				axios({
+					method: "post",
+					url: "http://localhost:8090/post/getPersonPost",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					withCredentials: true,
+					data: {
+						userId: VueCookies.get("user").userId
+					}
+				}).then((res) => {
+					for (let i = res.data.data.length - 1; i >= 0; i--) {
+						this.post.push(res.data.data[i])
+						axios({
+							method: "post",
+							url: "http://localhost:8090/user/getUser",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							withCredentials: true,
+							data: {
+								userId: res.data.data[i].postUser
+							}
+						}).then((res1) => {
+							// console.log(res1.data.data)
+							this.userImage.push(res1.data.data.userImage)
+							this.userName.push(res1.data.data.userName)
+						})
+					}
+
+
+
+				});
+			},
+			postText(postId) {
+				this.$router.push({
+					path: '/post_text',
+					query: {
+						postId: postId
+					}
+				})
+			},
 			getEssayList() {
 				axios({
 					method: "post",
@@ -266,25 +369,26 @@ import {watch} from'vue'
 						"Content-Type": "application/json"
 					},
 					withCredentials: true,
-					data:{
-						userId:VueCookies.get("user").userId
+					data: {
+						userId: VueCookies.get("user").userId
 					}
 				}).then((res) => {
 					this.ids = res.data.data
+					this.total=res.data.data.length
 					console.log(this.ids)
-					for(let i=0;i<this.ids.length;i++){
+					for (let i = 0; i < this.ids.length; i++) {
 						axios({
 							method: "get",
-							url: "http://localhost:8090/essay/getEssay/"+this.ids[i],
+							url: "http://localhost:8090/essay/getEssay/" + this.ids[i],
 							headers: {
 								"Content-Type": "multipart/form-data"
 							},
 							withCredentials: true,
-											
+
 						}).then((res) => {
 							console.log(res.data.data)
 							this.list.push(res.data.data)
-							
+
 							// this.form.author=res.data.data[1].essayAuthor
 							// console.log(this.form.author);
 							// this.form.title=res.data.data[1].essayTitle
@@ -293,10 +397,10 @@ import {watch} from'vue'
 							// this.form.text=res.data.data[1].essayText
 						});
 					}
-				
-				
-					
-					
+
+
+
+
 					// this.form.author=res.data.data[1].essayAuthor
 					// console.log(this.form.author);
 					// this.form.title=res.data.data[1].essayTitle
@@ -306,6 +410,17 @@ import {watch} from'vue'
 				});
 
 			},
+			handleSizeChange: function(size) {
+			  this.pagesize = size;
+			   this.getEssayList();          
+			   console.log(this.pagesize) //每页下拉显示数据
+			},
+			handleCurrentChange: function(currentPage) {
+			  this.currentPage = currentPage;
+			   console.log(this.currentPage) //点击第几页
+			   this.getEssayList();
+			
+			},
 		},
 		// created() {
 		// 	this.getEssayList()
@@ -313,12 +428,18 @@ import {watch} from'vue'
 		// 	this.img=VueCookies.get('user').userImage
 		// },
 		mounted() {
-
+			this.getAllPost()
 			this.getEssayList()
 			console.log(VueCookies.get('user').userImage)
 			this.img = VueCookies.get('user').userImage
 			// document.getElementById("person").className="page-scroll active";
 		},
+
+		computed: {
+			now() {
+				return Date.now();
+			}
+		}
 
 	}
 </script>
@@ -327,8 +448,8 @@ import {watch} from'vue'
 	div.content ::after {
 		height: 0;
 	}
-	div{
+
+	div {
 		text-decoration: none;
 	}
-
 </style>

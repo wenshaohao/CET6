@@ -4,6 +4,8 @@ import Information from '../view/information/information.vue'
 import Announcement_list from '../view/information/announcement_list.vue'
 import Announcement_text from '../view/information/announcement_text.vue'
 import Post_publish from'../view/information/post/post_publish.vue'
+import Post_text from'../view/information/post/post_text.vue'
+import Person_post from'../view/person/post/person_post.vue'
 import Person from '../view/person/person.vue'
 import Person_update from '../view/person/person_update.vue'
 import Person_word_text from '../view/person/vocabulary/person_word_text.vue'
@@ -67,6 +69,11 @@ export default [
 		component: Post_publish
 	},
 	{
+		path: '/post_text',
+		name: 'Post_text',
+		component: Post_text
+	},
+	{
 		path: '/special_exercises',
 		name: 'Special_exercises',
 		component:Special_exercises
@@ -84,12 +91,20 @@ export default [
 	{
 		path: '/person',
 		name: 'Person',
+		meta: {
+		       keepAlive: false //设置页面是否需要使用缓存
+		   },
 		component:Person
 	},
 	{
 		path: '/person_update',
 		name: 'Person_update',
 		component:Person_update
+	},
+	{
+		path: '/person_post',
+		name: 'Person_post',
+		component:Person_post
 	},
 	{
 		path: '/person/word_text',

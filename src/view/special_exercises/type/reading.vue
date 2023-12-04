@@ -15,9 +15,10 @@
 
 			</div>
 			<div class="answer">
-				<div id="answer"  v-for="(value,index) in answer" >
-					{{index+1}}.<input style="border-top:0;border-left:0;border-right:0;" type="text" class="in" v-model="answer[index]"/>
-		<!-- 			2,<input style="border-top:0;border-left:0;border-right:0;" type="text" class="in" />
+				<div id="answer" v-for="(value,index) in answer">
+					{{index+1}}.<input style="border-top:0;border-left:0;border-right:0;" type="text" class="in"
+						v-model="answer[index]" />
+					<!-- 			2,<input style="border-top:0;border-left:0;border-right:0;" type="text" class="in" />
 					3,<input style="border-top:0;border-left:0;border-right:0;" type="text" class="in" />
 					4,<input style="border-top:0;border-left:0;border-right:0;" type="text" class="in" />
 					5,<input style="border-top:0;border-left:0;border-right:0;" type="text" class="in" /> -->
@@ -26,23 +27,52 @@
 
 				<div class="holder">
 					<el-button class="b" type="primary" :icon="Search" @click="back()">返回</el-button>
-					<el-button class="b" type="primary" :icon="Search" @click="next">完成</el-button>
+					<el-button class="b" type="primary" :icon="Search" @click="centerDialogVisible = true">完成</el-button>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<el-dialog
+	    v-model="centerDialogVisible"
+	    title="Warning"
+	    width="30%"
+	    align-center
+	  >
+	    <span>确认提交？</span>
+	    <template #footer>
+	      <span class="dialog-footer">
+	        <el-button @click="centerDialogVisible = false">取消</el-button>
+	        <el-button type="primary" @click="next()">
+	          确定
+	        </el-button>
+	      </span>
+	    </template>
+	  </el-dialog>
+	
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from "vue-router";
+const router = useRouter();
+const centerDialogVisible = ref(false)
+
+
+
+</script>
+
 
 <script>
 	import Header from '../../../components/header.vue'
 	import '../../../assets/js/jquery.min.js'
 	import axios from 'axios'
-import VueCookies from 'vue-cookies';
+	import VueCookies from 'vue-cookies';
 	export default {
 		name: "Special_exercises",
 		data() {
 			return {
-				answer:['','','','',''],
+				answer: ['', '', '', '', ''],
 				ids: [],
 				reading: {
 					readingId: '',
@@ -58,7 +88,7 @@ import VueCookies from 'vue-cookies';
 			Header
 		},
 		methods: {
-
+			//随机出题
 			getIds() {
 				axios({
 					method: "post",
@@ -69,13 +99,14 @@ import VueCookies from 'vue-cookies';
 					withCredentials: true,
 				}).then((res) => {
 					console.log(res.data.data)
+					//遍历数据库题目id
 					for (let i = 0; i < res.data.data.length; i++) {
-						this.ids.push(res.data.data[i])
+						this.ids.push(res.data.data[i].readingId)
 					}
+					//根据数据库题目总数随机挑选一个id
 					this.reading.readingId = this.ids[Math.floor((Math.random() * this.ids.length))].toString()
-					console.log(this.reading.readingId)
+					//获取id题目信息
 					this.getReading(this.reading.readingId)
-
 				});
 			},
 			getReading(readingId) {
@@ -92,24 +123,27 @@ import VueCookies from 'vue-cookies';
 				}).then((res) => {
 					this.reading.readingText = res.data.data.readingText
 					this.reading.readingQuestion = res.data.data.readingQuestion
-					this.reading.readingAnswer=res.data.data.readingAnswer
-					document.getElementById("reading_left").innerHTML=this.reading.readingText
-document.getElementById("reading_question").innerHTML=this.reading.readingQuestion
+					this.reading.readingAnswer = res.data.data.readingAnswer
+					document.getElementById("reading_left").innerHTML = this.reading.readingText
+					document.getElementById("reading_question").innerHTML = this.reading.readingQuestion
 				});
 			},
 			back() {
 				this.$router.go(-1);
 			},
-
 			next: function() {
-				var a = confirm("确认提交？");
-				if (a) {
+					console.log(this.answer)
 					this.$router.push({
 						path: '/special_exercises/reading_answer',
-						query: {readingId:this.reading.readingId,answer:this.answer}
+						query: {
+							readingId: this.reading.readingId,
+							answer: this.answer
+						}
 					})
-				}
+				
 			}
+
+	
 		},
 		mounted() {
 			this.getIds()
@@ -172,13 +206,14 @@ document.getElementById("reading_question").innerHTML=this.reading.readingQuesti
 	}
 
 	.left {
-		border-style: groove;
-		border-width: 10px;
-		padding: 0 50px;
+		/* background-color: rgb(191, 203, 217); */
+		border-style: solid;
+		/* border-width: 10px; */
+		padding: 20px 50px;
 		margin-left: 2%;
 		height: 100%;
 		width: 46%;
-		background-color: antiquewhite;
+		/* background-color: antiquewhite; */
 		overflow-x: hidden;
 		overflow-wrap: anywhere;
 		margin-right: 2%;
@@ -187,8 +222,8 @@ document.getElementById("reading_question").innerHTML=this.reading.readingQuesti
 	}
 
 	.right {
-		border-style: groove;
-		border-width: 10px;
+		border-style: solid;
+		/* border-width: 10px; */
 		margin-right: 2%;
 		margin-left: 2%;
 		height: 100%;
@@ -196,6 +231,7 @@ document.getElementById("reading_question").innerHTML=this.reading.readingQuesti
 		/* background-color: #00ffff; */
 		overflow-x: hidden;
 		overflow-wrap: anywhere;
+		padding: 20px 50px;
 
 	}
 
@@ -207,14 +243,17 @@ document.getElementById("reading_question").innerHTML=this.reading.readingQuesti
 		display: flex;
 		flex-direction: row;
 		position: absolute;
+		/* margin-right: 100px; */
+		right: 2.5%;
 		height: 100px;
 		margin-top: 0px;
-		bottom: 1%;
+		bottom: 0.5%;
 		width: 45%;
 		background-color: white;
 		border-width: 2px 0 0 0;
 		border-style: solid;
 		border-color: black;
+		background-color: #e7e7e7;
 	}
 
 	.next {
@@ -234,5 +273,6 @@ document.getElementById("reading_question").innerHTML=this.reading.readingQuesti
 		width: 80px;
 		margin-top: 40px;
 		text-align: center;
+		background-color: #e7e7e7;
 	}
 </style>

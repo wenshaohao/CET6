@@ -51,6 +51,7 @@
 <script>
 	import Header from '../../../components/header.vue'
 	import '../../../assets/js/jquery.min.js'
+	import { ElMessage } from 'element-plus'
 	import axios from 'axios'
 import VueCookies from 'vue-cookies';
 	export default {
@@ -74,10 +75,13 @@ import VueCookies from 'vue-cookies';
 			Header
 		},
 		methods: {
+			//初始化
 			load() {
 				console.log(this.$route.query.answer.length)
 				for (let i = 0; i < this.$route.query.answer.length; i++) {
+					
 					this.answer[i] = this.$route.query.answer[i]
+					console.log(this.answer[i])
 				}
 				this.reading.readingId = this.$route.query.readingId
 				// console.log(this.reading.readingId)
@@ -102,7 +106,7 @@ import VueCookies from 'vue-cookies';
 					document.getElementById("reading_answer_question").innerHTML=this.reading.readingQuestion+"<br>"+this.reading.readingParse
 					for(let a=0;a<res.data.data.readingAnswer.split("-").length;a++){
 					  this.answer1[a]=res.data.data.readingAnswer.split("-")[a]
-					  // console.log(this.answer1[a])
+					  console.log(this.answer1[a])
 					  
 					}
 					var a=5;
@@ -131,7 +135,10 @@ import VueCookies from 'vue-cookies';
 							}
 						}).then((res) => {
 							console.log(res.data)
-							alert(res.data.message)
+							ElMessage({
+							    message: res.data.message,
+							    type: 'success',
+							  })
 							
 						
 						});
@@ -150,7 +157,10 @@ import VueCookies from 'vue-cookies';
 							}
 						}).then((res) => {
 							console.log(res.data)
-							alert(res.data.message)
+							ElMessage({
+							    message: res.data.message,
+							    type: 'success',
+							  })
 							
 						
 						});
@@ -244,13 +254,14 @@ import VueCookies from 'vue-cookies';
 	}
 
 	.left {
-		border-style: groove;
-		border-width: 10px;
-		padding: 0 50px;
+		
+		border-style: solid;
+		/* border-width: 10px; */
+		padding: 20px 50px;
 		margin-left: 2%;
 		height: 100%;
 		width: 46%;
-		background-color: antiquewhite;
+		/* background-color: antiquewhite; */
 		overflow-x: hidden;
 		overflow-wrap: anywhere;
 		margin-right: 2%;
@@ -259,8 +270,8 @@ import VueCookies from 'vue-cookies';
 	}
 
 	.right {
-		border-style: groove;
-		border-width: 10px;
+		border-style: solid;
+		/* border-width: 10px; */
 		margin-right: 2%;
 		margin-left: 2%;
 		height: 100%;
@@ -268,6 +279,7 @@ import VueCookies from 'vue-cookies';
 		/* background-color: #00ffff; */
 		overflow-x: hidden;
 		overflow-wrap: anywhere;
+		padding: 20px 50px;
 
 	}
 
@@ -279,14 +291,18 @@ import VueCookies from 'vue-cookies';
 		display: flex;
 		flex-direction: row;
 		position: absolute;
+		/* margin-right: 100px; */
+		right: 2.5%;
+		bottom: 0.5%;
 		height: 100px;
 		margin-top: 0px;
-		bottom: 1%;
+		bottom: 0.5%;
 		width: 45%;
 		background-color: white;
 		border-width: 2px 0 0 0;
 		border-style: solid;
 		border-color: black;
+		background-color: #e7e7e7;
 	}
 
 
@@ -308,5 +324,6 @@ import VueCookies from 'vue-cookies';
 		width: 80px;
 		margin-top: 20px;
 		text-align: center;
+		background-color: #e7e7e7;
 	}
 </style>

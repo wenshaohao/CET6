@@ -11,11 +11,11 @@
 				
 					<router-link class="col-xl-3 col-lg-3 col-md-6" :to="{path:'/essay_text',query: {id:essay.essayId}}"  v-for="essay in list" :key="index">
 						<div class="single-team text-center mb-120 wow fadeInUp" data-wow-delay=.2s>
-							<div class="team-img mb-20"> <img :src="essay.essayImage" alt="">
-								<div class=team-social-links>
-									<p style="color: white;">{{essay.essayId}}</p>
+							<div class="team-img mb-20"> <img style="height: 250px" :src="`${essay.essayImage+'?'+now}`" alt="">
+								<div class=team-social-links >
+									<p style="color: white;font-size: 30px;text-align: center;padding-right: 50px;">点击阅读</p>
 								</div>
-								<div class=team-info>
+								<div class=team-info style="background-color: #ceffdb;">
 									<h5>《{{essay.essayTitle}}》</h5>
 									<span>{{essay.essayAuthor}}</span>
 								</div>
@@ -23,53 +23,6 @@
 						</div>
 					</router-link>
 				
-
-				<!-- <div class="col-xl-3 col-lg-3 col-md-6" > -->
-
-				<!-- </div> -->
-
-				<!-- 				<router-link class="col-xl-3 col-lg-3 col-md-6" to="/essay_text">
-					<div class="single-team text-center mb-120 wow fadeInUp" data-wow-delay=.2s>
-						<div class="team-img mb-20"> <img src="../../assets/640.jfif" alt="">
-							<div class=team-social-links>
-								<p style="color: white;">“The Last Night of the World” is a tender, simple story. The first line alone is universally intriguing: “What would you do if you knew this was the last night of the world?”</p>
-							</div>
-							<div class=team-info>
-								<h5>《世界的最后一晚》</h5>
-								<span>Ray Bradbury</span>
-							</div>
-						</div>
-					</div>
-					</router-link>
-				
-				<router-link class="col-xl-3 col-lg-3 col-md-6" to="/essay_text">
-					<div class="single-team text-center mb-120 wow fadeInUp" data-wow-delay=.2s>
-						<div class="team-img mb-20"> <img src="../../assets/640.jfif" alt="">
-							<div class=team-social-links>
-								<p style="color: white;">“The Last Night of the World” is a tender, simple story. The first line alone is universally intriguing: “What would you do if you knew this was the last night of the world?”</p>
-							</div>
-							<div class=team-info>
-								<h5>《世界的最后一晚》</h5>
-								<span>Ray Bradbury</span>
-							</div>
-						</div>
-					</div>
-					</router-link>
-				
-				<router-link class="col-xl-3 col-lg-3 col-md-6" to="/essay_text">
-					<div class="single-team text-center mb-120 wow fadeInUp" data-wow-delay=.2s>
-						<div class="team-img mb-20"> <img src="../../assets/640.jfif" alt="">
-							<div class=team-social-links>
-								<p style="color: white;">“The Last Night of the World” is a tender, simple story. The first line alone is universally intriguing: “What would you do if you knew this was the last night of the world?”</p>
-							</div>
-							<div class=team-info>
-								<h5>《世界的最后一晚》</h5>
-								<span>Ray Bradbury</span>
-							</div>
-						</div>
-					</div>
-					</router-link> -->
-
 
 
 			</div>
@@ -109,6 +62,7 @@
 			Header
 		},
 		methods: {
+			
 			getList() {
 				axios({
 					method: "get",
@@ -137,7 +91,12 @@
 		mounted() {
 			this.getList()
 			document.getElementById("reading").className = "page-scroll active";
-		}
+		},
+		computed:{
+		     now(){
+		         return Date.now();
+		     }
+		  }
 	}
 </script>
 

@@ -1,7 +1,7 @@
 <template v-for="examination in examination">
 	<Header></Header>
 
-	<div class="content">
+	<div class="content" v-loading="loading">
 		<div class="left">
 			<div id="mypdf" style="width: 100%;height: 1080px;"></div>
 			<!-- <object data="http://localhost:8090/pdf/123.pdf" type="application/pdf" width="100%" height="100%"/> -->
@@ -24,9 +24,9 @@
 			</div>
 			<div class="answer">
 				<div class="listen">
-					<audio controls ref="audio" class="aud">
+					<audio controls ref="audio" class="aud" v-if="aLoading">
 
-						<source src="../static/audio/pojun1.mp3" />
+						<source id="audio" :src="examinationAudio" v-if="aLoading" />
 
 					</audio>
 				</div>
@@ -48,48 +48,82 @@
 		data() {
 			return {
 				examination: '',
+				examinationAudio:'',
+				loading:true,
+				aLoading:false,
 			}
 		},
 		components: {
 			Header
 		},
 		methods: {
-			getExamination() {
-				console.log(this.$route.query.id)
-				axios({
-					method: "post",
-					url: "http://localhost:8090/examination/getExamination",
-					// headers: {
-					// 	"Content-Type": "multipart/form-data",
-					// },
-					data: {
-						examinationId: this.$route.query.id
-					},
-					withCredentials: true,
+			// getExamination() {
+			// 	console.log(this.$route.query.id)
+			// 	axios({
+			// 		method: "post",
+			// 		url: "http://localhost:8090/examination/getExamination",
+			// 		// headers: {
+			// 		// 	"Content-Type": "multipart/form-data",
+			// 		// },
+			// 		data: {
+			// 			examinationId: this.$route.query.id
+			// 		},
+			// 		withCredentials: true,
 
-				}).then((res) => {
-					this.examination = res.data.data
-					console.log(this.examination.examinationText)
-					let url = this.examination.examinationText;
-					let url1 = this.examination.examinationParse;
-					PDFObject.embed(url, "#mypdf");
-					PDFObject.embed(url1, "#mypdf1");
+			// 	}).then((res) => {
+			// 		this.examination = res.data.data
+					
+			// 		let url = this.examination.examinationText;
+			// 		let url1 = this.examination.examinationParse;
+			// 		this.examinationAudio=res.data.data.examinationAudio
+			// 		console.log(this.examination)
+			// 		PDFObject.embed(url, "#mypdf");
+			// 		PDFObject.embed(url1, "#mypdf1");
+			// 		document.getElementById("audio").src=this.examination.examinationAudio
+			// 		this.aLoading=true
+			// 	});
 
-				});
-
-			},
+			// },
 			bakc(){
 				this.$router.go(-1);
 			}
 
 		},
+		beforeCreate() {
+	
+		},
+		created() {
+			// this.getExamination()
+			axios({
+				method: "post",
+				url: "http://localhost:8090/examination/getExamination",
+				// headers: {
+				// 	"Content-Type": "multipart/form-data",
+				// },
+				data: {
+					examinationId: this.$route.query.id
+				},
+				withCredentials: true,
+			
+			}).then((res) => {
+				this.examination = res.data.data
+				
+				let url = this.examination.examinationText;
+				let url1 = this.examination.examinationParse;
+				this.examinationAudio=res.data.data.examinationAudio
+				console.log(this.examination)
+				PDFObject.embed(url, "#mypdf");
+				PDFObject.embed(url1, "#mypdf1");
+			this.aLoading=true
+			});
+			this.loading=false
+			
+		},
 		mounted() {
+			// this.getExamination()
 
 
-
-			this.getExamination()
-
-			// document.getElementById("examination").className = "page-scroll active";
+			document.getElementById("examination").className = "page-scroll active";
 		},
 	}
 </script>

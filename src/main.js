@@ -6,8 +6,11 @@ import {WOW} from 'wowjs'
 import ElementPlus from 'element-plus'
 import axios from 'axios'
 
+
+
 import VueCookies from 'vue-cookies'
 // import axios from 'axios'
+import VueLazyload from 'vue-lazyload'
 import 'element-plus/dist/index.css'
 import router from './router/index.js' 
 import App from './App.vue'
@@ -16,6 +19,10 @@ import App from './App.vue'
 
 
 const app=createApp(App)
+
+
+
+
 
 app.config.globalProperties.$cookies = VueCookies
 
@@ -36,7 +43,7 @@ import logo1 from '../src/assets/picture/logo1.jpg';
 // const app=createApp()
 app.use(router);
 app.use(ElementPlus)
-
+app.use(VueLazyload)
 app.component('QuillEditor', QuillEditor)
 // app.use(axios)
 app.mount('#app')

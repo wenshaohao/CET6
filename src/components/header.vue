@@ -24,7 +24,7 @@
 			<div class="row" style="height: 50px;">
 				<div class="col-lg-12" style="height: 50px;">
 					<nav class="navbar navbar-expand-lg" style="height: 50px;">
-						<a class="navbar-brand" href="index.html" style="height: 50px;">
+						<a class="navbar-brand" href="" style="height: 50px;">
 							<img src="../assets/picture/logo3.jpg" style="height: 50px;width: 70px;" alt="Logo">
 						</a>
 
@@ -37,7 +37,7 @@
 								</router-link>
 								<router-link class="nav-item" to="/information">
 									<a class="page-scroll" style="text-decoration: none;height: 50px;"
-										id="report" @click="junp(6)">资讯</a>
+										id="report" @click="junp(6)">论坛</a>
 								</router-link>
 								<router-link class="nav-item" to="/special_exercises">
 									<a class="page-scroll" style="text-decoration: none;height: 50px;"
@@ -65,20 +65,20 @@
 									popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
 									<template #reference>
 										<router-link class="nav-item" to="/person" style="margin-top: 10px;">
-											<el-avatar class="photo" :src="img" />
+											<el-avatar class="photo" :src="`${img+'?'+now}`" />
 										</router-link>
 									</template>
 									<template #default>
 										<div class="demo-rich-conent"
 											style="display: flex; gap: 16px; flex-direction: column">
 											<center>
-												<el-avatar class="photo" :src="img"
+												<el-avatar class="photo" :src="`${img+'?'+now}`"
 													style="height: 100px;width: 100px;" />
 												<div style="font-size: 30px;margin-bottom: 20px;">{{username}}</div>
 												<div class="change" style="letter-spacing:5px;font-size: 20px;"
 													@click="change()">修改信息</div>
 												<div class="outLogin" style="letter-spacing:5px;font-size: 20px;"
-													@click="outLogin()">退出登录</div>
+													@click="centerDialogVisible = true">退出登录</div>
 											</center>
 
 
@@ -92,10 +92,41 @@
 				</div>
 			</div>
 		</div>
-
+	<el-dialog
+	   v-model="centerDialogVisible"
+	   title="删除"
+	   width="30%"
+	   align-center
+	 >
+	   <span>确认退出登录？</span>
+	   <template #footer>
+	     <span class="dialog-footer">
+	       <el-button @click="centerDialogVisible = false">取消</el-button>
+	       <el-button type="primary" @click="outLogin()">
+	         确认
+	       </el-button>
+	     </span>
+	   </template>
+	 </el-dialog>
 	</header>
 </template>
 
+
+<script  setup>
+import { ref } from 'vue'
+import { useRouter } from "vue-router";
+const router = useRouter();
+const centerDialogVisible = ref(false)
+
+
+const 	outLogin=function() {
+					VueCookies.remove("user")
+					console.log(VueCookies.get("user"))
+					router.push("/")
+				}
+
+			
+</script>
 
 <script>
 	import {
@@ -114,15 +145,7 @@
 			}
 		},
 		methods: {
-			outLogin() {
-				let out = confirm("确认退出？");
-				if (out) {
-					VueCookies.remove("user")
-					console.log(VueCookies.get("user"))
-					this.$router.push("/")
-
-				}
-			},
+		
 			change() {
 				this.$router.push("/person_update")
 			},
@@ -140,7 +163,12 @@
 		mounted() {
 			this.img = VueCookies.get("user").userImage
 			this.username = VueCookies.get("user").userName
-		}
+		},
+		computed:{
+		     now(){
+		         return Date.now();
+		     }
+		  }
 	}
 </script>
 

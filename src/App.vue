@@ -51,5 +51,9 @@
 	::-webkit-scrollbar {
 		/*隐藏滚轮*/
 		display: none;
+		scrollbar-width: none;
+	}
+	*{
+		scrollbar-width: none;
 	}
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<section id="work" class="work-area pt-125 pb-130" style="margin-top: 0px;padding-bottom: 320px;padding-top: 0;">
+	<section id="work" class="work-area pt-125 pb-130" style="margin-top: 50px;padding-bottom: 320px;padding-top: 0;">
 		<div class="container">
 			<div class=row >
 				<div class="col-xl-7 col-lg-8 col-md-10 mx-auto" style="width: 1500px;">
@@ -19,7 +19,7 @@
 		to="/word/word_text">
 		<div class="single-work text-center mt-30" style="height: 300px;width: 300px;">
 			<div class="work-image">
-				<img src="../assets/picture/work/w-4.jpg" alt="work"
+				<img src="../assets/picture/work/w-5.jpg" alt="work"
 					style="height: 300px; object-fit: contain;">
 			</div>
 			<div class="work-overlay">

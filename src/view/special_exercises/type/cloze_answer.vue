@@ -10,7 +10,7 @@
 		</div>
 		<div class="right">
 			<div class="question" id="cloze_answer_question">
-			<!-- 	{{cloze.clozeQuestion}}<br>
+				<!-- 	{{cloze.clozeQuestion}}<br>
 				{{cloze.clozeParse}} -->
 			</div>
 			<div class="answer">
@@ -42,7 +42,7 @@
 						5,<input style="border:0;" type="text" id="answer4" class="in" readonly v-model="answer[4]" />
 					</div>
 					<div style="margin-left: 85px;">
-						
+
 						6,<input style="border:0;" type="text" id="answer0" class="in" readonly v-model="answer[5]" />
 						7,<input style="border:0;" type="text" id="answer1" class="in" readonly v-model="answer[6]" />
 						8,<input style="border:0;" type="text" id="answer2" class="in" readonly v-model="answer[7]" />
@@ -54,7 +54,8 @@
 					<!-- <button class="back">加入错题本</button> -->
 					<div class="accuracyRate">正确率：{{accuracyRate}}%</div>
 					<el-button class="b" type="primary" :icon="Search" @click="next">下一题</el-button>
-					<el-button class="b" style="margin: 0;margin-top: 25px;" type="primary" :icon="Search" @click="out()">退出答题</el-button>
+					<el-button class="b" style="margin: 0;margin-top: 25px;" type="primary" :icon="Search"
+						@click="out()">退出答题</el-button>
 				</div>
 
 
@@ -67,6 +68,9 @@
 <script>
 	import Header from '../../../components/header.vue'
 	import '../../../assets/js/jquery.min.js'
+	import {
+		ElMessage
+	} from 'element-plus'
 	import axios from 'axios'
 	import VueCookies from 'vue-cookies';
 
@@ -114,8 +118,9 @@
 					this.cloze.clozeQuestion = res.data.data.clozeQuestion
 					this.cloze.clozeAnswer = res.data.data.clozeAnswer
 					this.cloze.clozeParse = res.data.data.clozeParse
-					document.getElementById("cloze_answer_left").innerHTML=this.cloze.clozeText
-					document.getElementById("cloze_answer_question").innerHTML=this.cloze.clozeQuestion+"<br>"+this.cloze.clozeParse
+					document.getElementById("cloze_answer_left").innerHTML = this.cloze.clozeText
+					document.getElementById("cloze_answer_question").innerHTML = this.cloze.clozeQuestion +
+						"<br>" + this.cloze.clozeParse
 					// console.log(this.cloze)
 					for (let a = 0; a < res.data.data.clozeAnswer.split("-").length; a++) {
 						this.answer1[a] = res.data.data.clozeAnswer.split("-")[a]
@@ -133,7 +138,7 @@
 						}
 					}
 					this.accuracyRate = (a / this.answer1.length) * 100
-					if(this.accuracyRate<=50){
+					if (this.accuracyRate <= 50) {
 						axios({
 							method: "post",
 							url: "http://localhost:8090/wrongQuestion/addWrongQuestion",
@@ -142,17 +147,20 @@
 							},
 							withCredentials: true,
 							data: {
-								wrongQuestionId:this.cloze.clozeId,
-								userId:VueCookies.get('user').userId,
-								type:2
+								wrongQuestionId: this.cloze.clozeId,
+								userId: VueCookies.get('user').userId,
+								type: 2
 							}
 						}).then((res) => {
 							console.log(res.data)
-							alert(res.data.message)
-							
-						
+							ElMessage({
+								message: res.data.message,
+								type: 'success',
+							})
+
+
 						});
-					}else{
+					} else {
 						axios({
 							method: "post",
 							url: "http://localhost:8090/wrongQuestion/deleteWrongQuestion",
@@ -161,15 +169,18 @@
 							},
 							withCredentials: true,
 							data: {
-								wrongQuestionId:this.cloze.clozeId,
-								userId:VueCookies.get('user').userId,
-								type:2
+								wrongQuestionId: this.cloze.clozeId,
+								userId: VueCookies.get('user').userId,
+								type: 2
 							}
 						}).then((res) => {
 							console.log(res.data)
-							alert(res.data.message)
-							
-						
+							ElMessage({
+								message: res.data.message,
+								type: 'success',
+							})
+
+
 						});
 					}
 					// this.accuracyRate=
@@ -183,7 +194,7 @@
 
 				this.$router.go(-1);
 			},
-			out(){
+			out() {
 				this.$router.go(-2)
 			}
 		},
@@ -266,13 +277,14 @@
 	}
 
 	.left {
-		border-style: groove;
-		border-width: 10px;
-		padding: 0 50px;
+
+		border-style: solid;
+		/* border-width: 10px; */
+		padding: 20px 50px;
 		margin-left: 2%;
 		height: 100%;
 		width: 46%;
-		background-color: antiquewhite;
+		/* background-color: antiquewhite; */
 		overflow-x: hidden;
 		overflow-wrap: anywhere;
 		margin-right: 2%;
@@ -281,8 +293,8 @@
 	}
 
 	.right {
-		border-style: groove;
-		border-width: 10px;
+		border-style: solid;
+		/* border-width: 10px; */
 		margin-right: 2%;
 		margin-left: 2%;
 		height: 100%;
@@ -290,7 +302,8 @@
 		/* background-color: #00ffff; */
 		overflow-x: hidden;
 		overflow-wrap: anywhere;
-
+		padding: 20px 50px;
+		padding-bottom: 100px;
 	}
 
 	.question {
@@ -303,12 +316,14 @@
 		position: absolute;
 		height: 200px;
 		margin-top: 0px;
-		bottom: 1%;
+		right: 2.5%;
+		bottom: 0.5%;
 		width: 45%;
 		background-color: white;
 		border-width: 2px 0 0 0;
 		border-style: solid;
 		border-color: black;
+		background-color: #e7e7e7;
 	}
 
 
@@ -330,5 +345,6 @@
 		width: 80px;
 		margin-top: 20px;
 		text-align: center;
+		background-color: #e7e7e7;
 	}
 </style>

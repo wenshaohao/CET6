@@ -51,6 +51,7 @@
 			Header
 		},
 		methods:{
+			//随机获取题目 id
 			getid(){
 				axios({
 					method: "post",
@@ -63,7 +64,7 @@
 				}).then((res) => {
 					console.log(res.data.data)
 					for(let i=0 ;i<res.data.data.length;i++){
-						this.ids.push(res.data.data[i])
+						this.ids.push(res.data.data[i].translationId)
 					}
 				this.translation.translationId=this.ids[Math.floor((Math.random()*this.ids.length))].toString()
 				console.log(this.translation.translationId)
@@ -72,9 +73,11 @@
 				});
 				
 			},
+			//查看范文按钮
 			view(){
 				document.getElementById("view").removeAttribute("hidden")
 			},
+			//根据id获取翻译题目
 			gettranslation(translationId){
 				console.log(translationId)
 				axios({
@@ -98,7 +101,7 @@
 				this.$router.go(-1);
 			},
 			next(){
-				this.$router.go(0)
+				this.$router.go(0);
 			}
 		},
 		mounted() {

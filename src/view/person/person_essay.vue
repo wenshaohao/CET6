@@ -12,11 +12,29 @@
 	</div>
 	<div style="position: relative;text-align: center;height: 100%;margin-top: 41.5%">
 		<!-- <el-button class="" type="primary" :icon="Search" style="position: ;">上一篇</el-button> -->
-		<el-button class="" type="primary" :icon="Search" style="position: ;" @click="outMyEssay()">移出收藏</el-button>
+		<el-button class="" type="primary" :icon="Search" style="position: ;" @click="centerDialogVisible = true">取消收藏</el-button>
 		<el-button class="" type="primary" :icon="Search" style="" @click="back()">返回</el-button>
 		<!-- <el-button class="" type="primary" :icon="Search" style="">下一篇</el-button> -->
 		
 	</div>
+
+	<el-dialog
+	  v-model="centerDialogVisible"
+	  title="Warning"
+	  width="30%"
+	  align-center
+	>
+	  <span>确认移出？</span>
+	  <template #footer>
+	    <span class="dialog-footer">
+	      <el-button @click="centerDialogVisible = false">取消</el-button>
+	      <el-button type="primary" @click="outMyEssay()">
+	        确定
+	      </el-button>
+	    </span>
+	  </template>
+	</el-dialog>
+
 
 </template>
 
@@ -24,11 +42,13 @@
 	import Header from '../../components/header.vue'
 import axios from 'axios'
 import VueCookies from 'vue-cookies';
+import { ElMessage } from 'element-plus'
 
 	export default {
 
 		data() {
 			return {
+				centerDialogVisible:false,
 				essay:''
 			}
 		},
@@ -75,9 +95,14 @@ import VueCookies from 'vue-cookies';
 					}
 				}).then((res) => {
 					console.log(res.data)
-					alert(res.data.message)
+					ElMessage({
+					    message: res.data.message,
+					    type: 'success',
+					  })
 				
 				});
+				this.centerDialogVisible=false
+				this.$router.go(-1)
 			}
 		},
 		
@@ -106,7 +131,7 @@ import VueCookies from 'vue-cookies';
 		width: 46%;
 
 
-		background-color: antiquewhite;
+		background-color: #d0ffe8;
 		overflow-x: hidden;
 		overflow-wrap: anywhere;
 		padding: 0 30px;

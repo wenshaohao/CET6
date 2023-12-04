@@ -45,7 +45,7 @@
 				</div>
 				<div class="holder">
 					<el-button class="b" type="primary" :icon="Search" @click="back()">返回</el-button>
-					<el-button class="b" type="primary" :icon="Search" @click="next">完成</el-button>
+					<el-button class="b" type="primary" :icon="Search" @click="centerDialogVisible = true">完成</el-button>
 				</div>
 
 
@@ -53,6 +53,24 @@
 
 		</div>
 	</div>
+	
+	
+	<el-dialog
+	    v-model="centerDialogVisible"
+	    title="Warning"
+	    width="30%"
+	    align-center
+	  >
+	    <span>确认提交？</span>
+	    <template #footer>
+	      <span class="dialog-footer">
+	        <el-button @click="centerDialogVisible = false">取消</el-button>
+	        <el-button type="primary" @click="next()">
+	          确定
+	        </el-button>
+	      </span>
+	    </template>
+	  </el-dialog>
 </template>
 
 <script>
@@ -64,6 +82,7 @@
 
 		data() {
 			return {
+				centerDialogVisible:false,
 				answer: ['', '', '', '', ''],
 				ids: [],
 				cloze: {
@@ -135,16 +154,13 @@
 			},
 
 			next: function() {
-				var a = confirm("确认提交？");
-				if (a) {
-					this.$router.push({
-						path: '/special_exercises/cloze_answer',
-						query: {
-							clozeId: this.cloze.clozeId,
-							answer: this.answer
-						}
-					})
-				}
+				this.$router.push({
+					path: '/special_exercises/cloze_answer',
+					query: {
+						clozeId: this.cloze.clozeId,
+						answer: this.answer
+					}
+				})
 			}
 		},
 		mounted() {
@@ -229,13 +245,14 @@
 	}
 
 	.left {
-		border-style: groove;
-		border-width: 10px;
-		padding: 0 50px;
+		
+		border-style: solid;
+		/* border-width: 10px; */
+		padding: 20px 50px;
 		margin-left: 2%;
 		height: 100%;
 		width: 46%;
-		background-color: antiquewhite;
+		/* background-color: antiquewhite; */
 		overflow-x: hidden;
 		overflow-wrap: anywhere;
 		margin-right: 2%;
@@ -244,8 +261,8 @@
 	}
 
 	.right {
-		border-style: groove;
-		border-width: 10px;
+		border-style: solid;
+		/* border-width: 10px; */
 		margin-right: 2%;
 		margin-left: 2%;
 		height: 100%;
@@ -253,7 +270,8 @@
 		/* background-color: #00ffff; */
 		overflow-x: hidden;
 		overflow-wrap: anywhere;
-
+		padding: 20px 50px;
+		
 	}
 
 	.question {
@@ -266,12 +284,14 @@
 		position: absolute;
 		height: 100px;
 		margin-top: 0px;
-		bottom: 1%;
+		right: 2.5%;
+		bottom: 0.5%;
 		width: 45%;
 		background-color: white;
 		border-width: 2px 0 0 0;
 		border-style: solid;
 		border-color: black;
+		background-color: #e7e7e7;
 	}
 
 
@@ -293,5 +313,6 @@
 		width: 80px;
 		margin-top: 20px;
 		text-align: center;
+		background-color: #e7e7e7;
 	}
 </style>
